@@ -5,7 +5,7 @@ import FarmForm from './FarmForm'
 import NotFound from './NotFound'
 import PatchForm from './PatchForm'
 import RowForm from './RowForm'
-import TaskAssignment from './TaskAssignment'
+// import TaskAssignment from './TaskAssignment'
 import DataSummarization from './DataSummarization'
 import FarmView from './FarmView'
 import PatchView from './PatchView'
@@ -18,10 +18,10 @@ const App = () => {
         <Route path="/" exact component={FarmForm} />
         <Route path="/add-patch/:farmId" component={PatchForm} />
         <Route path="/add-row/:farmId/:patchId" component={RowForm} />
-        <Route
+        {/* <Route
           path="/assign-task/:farmId/:patchId/:rowIndex"
           component={TaskAssignment}
-        />
+        /> */}
         <Route path="/data-summary" component={DataSummarization} />
         <Route path="/view-farm/:farmId" component={FarmView} />
         <Route path="/view-patch/:farmId/:patchId" component={PatchView} />

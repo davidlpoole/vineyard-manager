@@ -18,7 +18,6 @@ const PatchView = () => {
     <div>
       <h2>Patch Details</h2>
       <p>Patch Name: {selectedPatch.name}</p>
-      {/* "/add-row/:farmId/:patchId" */}
       <Link to={`/add-row/${farmId}/${patchId}`}>Add Row</Link>
 
       <h3>Rows</h3>
@@ -39,9 +38,9 @@ const PatchView = () => {
                   {row.number}
                 </Link>
               </td>
-              <td>{row.vineCount} vines</td>
-              <td>{row.tasks[0]?.puller}</td>
-              <td>{row.tasks[0]?.roller}</td>
+              <td>{row.vineCount}</td>
+              <td>{row.tasks?.puller}</td>
+              <td>{row.tasks?.roller}</td>
             </tr>
           ))}
         </tbody>

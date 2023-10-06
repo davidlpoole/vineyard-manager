@@ -25,18 +25,8 @@ const RowView = () => {
     e.preventDefault()
 
     // Update the task assignment for the selected row
-    if (
-      farmData[farmId] &&
-      farmData[farmId].patches &&
-      farmData[farmId].patches[patchId] &&
-      farmData[farmId].patches[patchId].rows &&
-      farmData[farmId].patches[patchId].rows[rowIndex]
-    ) {
-      farmData[farmId].patches[patchId].rows[rowIndex].tasks = [
-        { puller, roller },
-      ]
-      saveToLocalStorage('farmData', farmData)
-    }
+    farmData[farmId].patches[patchId].rows[rowIndex].tasks = { puller, roller }
+    saveToLocalStorage('farmData', farmData)
 
     history.push(`/view-row/${farmId}/${patchId}/${rowIndex}`)
   }
@@ -53,16 +43,16 @@ const RowView = () => {
       <p>Row Index: {rowIndex}</p>
       <p>Row Number: {selectedRow.number}</p>
       <p>Vine Count: {selectedRow.vineCount}</p>
-      <p>Puller: {selectedRow.tasks[0]?.puller}</p>
-      <p>Roller: {selectedRow.tasks[0]?.roller}</p>
+      <p>Puller: {selectedRow.tasks?.puller}</p>
+      <p>Roller: {selectedRow.tasks?.roller}</p>
 
-      <h3>Assign Task</h3>
+      <h3>Assign</h3>
       <form onSubmit={handleAssignTask}>
         <label>Puller:</label>
         <input type="text" value={puller} onChange={handlePullerChange} />
         <label>Roller:</label>
         <input type="text" value={roller} onChange={handleRollerChange} />
-        <button type="submit">Assign Task</button>
+        <button type="submit">Assign</button>
       </form>
       <p>
         <Link to={`/view-patch/${farmId}/${patchId}/`}>Back</Link>
