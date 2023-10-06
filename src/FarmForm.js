@@ -1,6 +1,6 @@
 // FarmForm.js
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
 const FarmForm = () => {
@@ -42,6 +42,8 @@ const FarmForm = () => {
           </li>
         ))}
       </ul>
+      <h2>Data Summary</h2>
+      <Link to={`/data-summary`}>View</Link>
     </div>
   )
 }

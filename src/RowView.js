@@ -1,89 +1,72 @@
 // RowView.js
-import React, { useState, useEffect, useContext } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { RowStateContext } from './RowStateContext'
+import React, { useState } from 'react'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
 const RowView = () => {
   const { farmId, patchId, rowIndex } = useParams()
-  const { tasks, setTasks } = useContext(RowStateContext)
+  const history = useHistory()
 
-  const farmData = JSON.parse(localStorage.getItem('farmData'))
-  const selectedFarm = farmData[farmId]
-  const selectedPatch = selectedFarm?.patches[patchId]
-  const selectedRow = selectedPatch?.rows[rowIndex]
+  const farmData = JSON.parse(localStorage.getItem('farmData')) || []
+  const selectedRow = farmData[farmId]?.patches[patchId]?.rows[rowIndex]
 
   const [puller, setPuller] = useState('')
   const [roller, setRoller] = useState('')
 
-  useEffect(() => {
-    setTasks(selectedRow?.tasks || [])
-  }, [selectedRow, setTasks])
+  const handlePullerChange = (e) => {
+    setPuller(e.target.value)
+  }
+
+  const handleRollerChange = (e) => {
+    setRoller(e.target.value)
+  }
 
   const handleAssignTask = (e) => {
     e.preventDefault()
-    const updatedTask = { puller, roller }
-    const updatedTasks = [...tasks, updatedTask]
-    setTasks(updatedTasks)
 
-    const updatedFarms = farmData.map((farm, farmIndex) => {
-      if (farmIndex === parseInt(farmId)) {
-        const updatedPatches = farm.patches.map((patch, patchIndex) => {
-          if (patchIndex === parseInt(patchId)) {
-            const updatedRows = patch.rows.map((row, rIndex) => {
-              if (rIndex === parseInt(rowIndex)) {
-                return { ...row, tasks: updatedTasks }
-              }
-              return row
-            })
-            return { ...patch, rows: updatedRows }
-          }
-          return patch
-        })
-        return { ...farm, patches: updatedPatches }
-      }
-      return farm
-    })
+    // Update the task assignment for the selected row
+    if (
+      farmData[farmId] &&
+      farmData[farmId].patches &&
+      farmData[farmId].patches[patchId] &&
+      farmData[farmId].patches[patchId].rows &&
+      farmData[farmId].patches[patchId].rows[rowIndex]
+    ) {
+      farmData[farmId].patches[patchId].rows[rowIndex].tasks = [
+        { puller, roller },
+      ]
+      saveToLocalStorage('farmData', farmData)
+    }
 
-    saveToLocalStorage('farmData', updatedFarms)
+    history.push(`/view-row/${farmId}/${patchId}/${rowIndex}`)
+  }
+
+  if (!selectedRow) {
+    return <div>Invalid Row Index</div>
   }
 
   return (
     <div>
       <h2>Row Details</h2>
-      <p>Row Number: {selectedRow?.number}</p>
-      <p>Vine Count: {selectedRow?.vineCount}</p>
+      <p>Farm ID: {farmId}</p>
+      <p>Patch ID: {patchId}</p>
+      <p>Row Index: {rowIndex}</p>
+      <p>Row Number: {selectedRow.number}</p>
+      <p>Vine Count: {selectedRow.vineCount}</p>
+      <p>Puller: {selectedRow.tasks[0].puller}</p>
+      <p>Roller: {selectedRow.tasks[0].roller}</p>
 
       <h3>Assign Task</h3>
       <form onSubmit={handleAssignTask}>
         <label>Puller:</label>
-        <input
-          type="text"
-          value={puller}
-          onChange={(e) => setPuller(e.target.value)}
-        />
+        <input type="text" value={puller} onChange={handlePullerChange} />
         <label>Roller:</label>
-        <input
-          type="text"
-          value={roller}
-          onChange={(e) => setRoller(e.target.value)}
-        />
+        <input type="text" value={roller} onChange={handleRollerChange} />
         <button type="submit">Assign Task</button>
       </form>
-
-      {/* Display task details if available */}
-      {tasks.length > 0 && (
-        <div>
-          <h3>Tasks:</h3>
-          <ul>
-            {tasks.map((task, index) => (
-              <li key={index}>
-                Puller: {task.puller}, Roller: {task.roller}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <p>
+        <Link to={`/view-patch/${farmId}/${patchId}/`}>Back</Link>
+      </p>
     </div>
   )
 }

@@ -1,12 +1,10 @@
 // TaskAssignment.js
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { RowStateContext } from './RowStateContext'
 import { saveToLocalStorage } from './utility'
 
 const TaskAssignment = () => {
   const { farmId, patchId, rowIndex } = useParams()
-  const { tasks, setTasks } = useContext(RowStateContext)
   const history = useHistory()
 
   const [puller, setPuller] = useState('')
@@ -22,31 +20,13 @@ const TaskAssignment = () => {
 
   const handleAssignTask = (e) => {
     e.preventDefault()
-    const updatedTask = { puller, roller }
-    const updatedTasks = [...tasks, updatedTask]
-    setTasks(updatedTasks)
 
-    const farmData = JSON.parse(localStorage.getItem('farmData'))
-    const updatedFarms = farmData.map((farm, farmIndex) => {
-      if (farmIndex === parseInt(farmId)) {
-        const updatedPatches = farm.patches.map((patch, patchIndex) => {
-          if (patchIndex === parseInt(patchId)) {
-            const updatedRows = patch.rows.map((row, rIndex) => {
-              if (rIndex === parseInt(rowIndex)) {
-                return { ...row, tasks: updatedTasks }
-              }
-              return row
-            })
-            return { ...patch, rows: updatedRows }
-          }
-          return patch
-        })
-        return { ...farm, patches: updatedPatches }
-      }
-      return farm
-    })
+    const farmData = JSON.parse(localStorage.getItem('farmData')) || []
+    farmData[farmId].patches[patchId].rows[rowIndex].tasks = [
+      { puller, roller },
+    ]
+    saveToLocalStorage('farmData', farmData)
 
-    saveToLocalStorage('farmData', updatedFarms)
     history.push(`/view-row/${farmId}/${patchId}/${rowIndex}`)
   }
 

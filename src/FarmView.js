@@ -27,6 +27,9 @@ const FarmView = () => {
           </li>
         ))}
       </ul>
+      <p>
+        <Link to={`/`}>Back</Link>
+      </p>
     </div>
   )
 }

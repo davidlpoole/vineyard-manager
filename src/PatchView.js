@@ -31,6 +31,9 @@ const PatchView = () => {
           </li>
         ))}
       </ul>
+      <p>
+        <Link to={`/view-farm/${farmId}`}>Back</Link>
+      </p>
     </div>
   )
 }

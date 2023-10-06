@@ -1,26 +1,49 @@
 // DataSummarization.js
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const DataSummarization = () => {
-  const { farmId, patchId, rowIndex } = useParams()
-
   // Retrieve farm data from local storage or any other source
-  const farmData = JSON.parse(localStorage.getItem('farmData'))
-  const selectedFarm = farmData[farmId]
-  const selectedPatch = selectedFarm?.patches[patchId]
-  const selectedRow = selectedPatch?.rows[rowIndex]
+  const farmData = JSON.parse(localStorage.getItem('farmData')) || []
 
   return (
     <div>
-      <h2>Data Summary for Row</h2>
-      <p>Farm ID: {farmId}</p>
-      <p>Patch ID: {patchId}</p>
-      <p>Row Index: {rowIndex}</p>
-      <p>Row Number: {selectedRow?.number}</p>
-      <p>Vine Count: {selectedRow?.vineCount}</p>
-
-      {/* Display additional summary data here */}
+      <h2>Data Summary for All Farms, Patches, and Rows</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Farm ID</th>
+            <th>Farm Name</th>
+            <th>Patch ID</th>
+            <th>Patch Name</th>
+            <th>Row Index</th>
+            <th>Row Number</th>
+            <th>Vine Count</th>
+            <th>Puller</th>
+            <th>Roller</th>
+          </tr>
+        </thead>
+        <tbody>
+          {farmData.map((farm, farmIndex) =>
+            farm.patches.map((patch, patchIndex) =>
+              patch.rows.map((row, rowIndex) => (
+                <tr key={`${farmIndex}-${patchIndex}-${rowIndex}`}>
+                  <td>{farmIndex}</td>
+                  <td>{farm.name}</td>
+                  <td>{patchIndex}</td>
+                  <td>{patch.name}</td>
+                  <td>{rowIndex}</td>
+                  <td>{row.number}</td>
+                  <td>{row.vineCount}</td>
+                  <td>{row.tasks[0] ? row.tasks[0].puller : 'N/A'}</td>
+                  <td>{row.tasks[0] ? row.tasks[0].roller : 'N/A'}</td>
+                </tr>
+              ))
+            )
+          )}
+        </tbody>
+      </table>
+      <Link to={`/`}>Home</Link>
     </div>
   )
 }
