@@ -1,28 +1,37 @@
 // RowView.js
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { RowStateContext } from './RowStateContext'
 import { saveToLocalStorage } from './utility'
 
 const RowView = () => {
   const { farmId, patchId, rowIndex } = useParams()
+  const { tasks, setTasks } = useContext(RowStateContext)
+
   const farmData = JSON.parse(localStorage.getItem('farmData'))
-  const selectedRow = farmData[farmId]?.patches[patchId]?.rows[rowIndex]
+  const selectedFarm = farmData[farmId]
+  const selectedPatch = selectedFarm?.patches[patchId]
+  const selectedRow = selectedPatch?.rows[rowIndex]
 
   const [puller, setPuller] = useState('')
   const [roller, setRoller] = useState('')
-  const [tasks, setTasks] = useState(selectedRow?.tasks || [])
+
+  useEffect(() => {
+    setTasks(selectedRow?.tasks || [])
+  }, [selectedRow, setTasks])
 
   const handleAssignTask = (e) => {
     e.preventDefault()
     const updatedTask = { puller, roller }
     const updatedTasks = [...tasks, updatedTask]
+    setTasks(updatedTasks)
 
     const updatedFarms = farmData.map((farm, farmIndex) => {
       if (farmIndex === parseInt(farmId)) {
         const updatedPatches = farm.patches.map((patch, patchIndex) => {
           if (patchIndex === parseInt(patchId)) {
-            const updatedRows = patch.rows.map((row, rowIndex) => {
-              if (rowIndex === parseInt(rowIndex)) {
+            const updatedRows = patch.rows.map((row, rIndex) => {
+              if (rIndex === parseInt(rowIndex)) {
                 return { ...row, tasks: updatedTasks }
               }
               return row
@@ -37,7 +46,6 @@ const RowView = () => {
     })
 
     saveToLocalStorage('farmData', updatedFarms)
-    setTasks(updatedTasks) // Update tasks in state to trigger re-render
   }
 
   return (
