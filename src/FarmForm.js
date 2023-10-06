@@ -19,7 +19,7 @@ const FarmForm = () => {
     const updatedFarms = [...farms, newFarm]
     setFarms(updatedFarms)
     saveToLocalStorage('farmData', updatedFarms)
-    setFarmName(' ')
+    setFarmName('')
     // history.push(`/view-farm/${updatedFarms.length - 1}`)
   }
 
@@ -45,8 +45,6 @@ const FarmForm = () => {
         </label>
         <button type="submit">Add Farm</button>
       </form>
-      <h2>Data Summary</h2>
-      <Link to={`/data-summary`}>View</Link>
     </div>
   )
 }
