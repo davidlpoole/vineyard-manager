@@ -17,7 +17,8 @@ const FarmView = () => {
     <div>
       <h2>Farm Details</h2>
       <p>Farm Name: {selectedFarm.name}</p>
-
+      {/* path="/add-patch/:farmId" */}
+      <Link to={`/add-patch/${farmId}`}>Add Patch</Link>
       <h3>Patches</h3>
       <ul>
         {selectedFarm.patches.map((patch, index) => (

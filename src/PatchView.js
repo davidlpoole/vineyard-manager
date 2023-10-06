@@ -18,6 +18,8 @@ const PatchView = () => {
     <div>
       <h2>Patch Details</h2>
       <p>Patch Name: {selectedPatch.name}</p>
+      {/* "/add-row/:farmId/:patchId" */}
+      <Link to={`/add-row/${farmId}/${patchId}`}>Add Row</Link>
 
       <h3>Rows</h3>
       <ul>
