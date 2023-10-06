@@ -19,19 +19,14 @@ const FarmForm = () => {
     const updatedFarms = [...farms, newFarm]
     setFarms(updatedFarms)
     saveToLocalStorage('farmData', updatedFarms)
-    history.push(`/view-farm/${updatedFarms.length - 1}`)
+    // history.push(`/view-farm/${updatedFarms.length - 1}`)
   }
 
   return (
     <div>
-      <h2>Add a Farm</h2>
-      <form onSubmit={handleAddFarm}>
-        <label>Farm Name:</label>
-        <input type="text" value={farmName} onChange={handleFarmNameChange} />
-        <button type="submit">Add Farm</button>
-      </form>
+      <h1>Vineyard Tracker</h1>
 
-      <h2>Existing Farms</h2>
+      <h2>Farms</h2>
       <ul>
         {farms.map((farm, index) => (
           <li key={index}>
@@ -41,6 +36,18 @@ const FarmForm = () => {
           </li>
         ))}
       </ul>
+      <form onSubmit={handleAddFarm}>
+        <label>
+          <input
+            type="text"
+            placeholder="Farm name"
+            value={farmName}
+            required
+            onChange={handleFarmNameChange}
+          />
+        </label>
+        <button type="submit">Add Farm</button>
+      </form>
       <h2>Data Summary</h2>
       <Link to={`/data-summary`}>View</Link>
     </div>

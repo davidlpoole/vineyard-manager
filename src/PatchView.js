@@ -93,8 +93,9 @@ const PatchView = () => {
       </p>
       <p>
         <button type="button" onClick={handleSave}>
-          Submit
+          Save and go back
         </button>
+        <button type="button">Discard changes and go back</button>
       </p>
     </div>
   )

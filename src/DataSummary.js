@@ -10,11 +10,11 @@ const DataSummarization = () => {
       <table>
         <thead>
           <tr>
-            <th>Farm ID</th>
+            {/* <th>Farm ID</th> */}
             <th>Farm Name</th>
-            <th>Patch ID</th>
+            {/* <th>Patch ID</th> */}
             <th>Patch Name</th>
-            <th>Row Index</th>
+            {/* <th>Row Index</th> */}
             <th>Row Number</th>
             <th>Vine Count</th>
             <th>Puller</th>
@@ -26,11 +26,11 @@ const DataSummarization = () => {
             farm.patches.map((patch, patchIndex) =>
               patch.rows.map((row, rowIndex) => (
                 <tr key={`${farmIndex}-${patchIndex}-${rowIndex}`}>
-                  <td>{farmIndex}</td>
+                  {/* <td>{farmIndex}</td> */}
                   <td>{farm.name}</td>
-                  <td>{patchIndex}</td>
+                  {/* <td>{patchIndex}</td> */}
                   <td>{patch.name}</td>
-                  <td>{rowIndex}</td>
+                  {/* <td>{rowIndex}</td> */}
                   <td>{row.number}</td>
                   <td>{row.vineCount}</td>
                   <td>{row.puller}</td>
