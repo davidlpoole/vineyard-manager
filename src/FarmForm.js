@@ -19,20 +19,17 @@ const FarmForm = () => {
     const updatedFarms = [...farms, newFarm]
     setFarms(updatedFarms)
     saveToLocalStorage('farmData', updatedFarms)
+    setFarmName(' ')
     // history.push(`/view-farm/${updatedFarms.length - 1}`)
   }
 
   return (
     <div>
-      <h1>Vineyard Tracker</h1>
-
       <h2>Farms</h2>
       <ul>
         {farms.map((farm, index) => (
           <li key={index}>
-            <button onClick={() => history.push(`/view-farm/${index}`)}>
-              {farm.name}
-            </button>
+            <Link to={`/view-farm/${index}`}>{farm.name}</Link>
           </li>
         ))}
       </ul>

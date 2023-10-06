@@ -29,9 +29,7 @@ const PatchView = () => {
 
   return (
     <div>
-      <h2>
-        <Link to={`/view-farm/${farmId}`}>{selectedFarm.name}</Link>
-      </h2>
+      <h2>{selectedFarm.name}</h2>
       <h3>Patch Name: {selectedPatch.name}</h3>
 
       <table>
@@ -95,7 +93,8 @@ const PatchView = () => {
         <button type="button" onClick={handleSave}>
           Save and go back
         </button>
-        <button type="button">Discard changes and go back</button>
+        <br />
+        <Link to={`/view-farm/${farmId}`}>Discard and go back</Link>
       </p>
     </div>
   )

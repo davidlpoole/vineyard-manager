@@ -37,13 +37,13 @@ const FarmView = () => {
 
     setFarms(updatedFarms)
     saveToLocalStorage('farmData', updatedFarms)
+    setPatchName('')
     history.push(`/view-farm/${farmId}`)
   }
 
   return (
     <div>
-      <h2>Farm Details</h2>
-      <p>Farm Name: {selectedFarm.name}</p>
+      <h2>Farm Name: {selectedFarm.name}</h2>
 
       <h3>Patches</h3>
       <ul>
