@@ -40,23 +40,13 @@ const PatchView = () => {
                 </Link>
               </td>
               <td>{row.vineCount} vines</td>
-              <td> {row.tasks[0].puller}</td>
-              <td> {row.tasks[0].roller}</td>
+              <td>{row.tasks[0]?.puller}</td>
+              <td>{row.tasks[0]?.roller}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* <ul>
-        {selectedPatch.rows.map((row, index) => (
-          <li key={index}>
-            <Link to={`/view-row/${farmId}/${patchId}/${index}`}>
-              Row {row.number}
-            </Link>{' '}
-            {row.vineCount} vines {row.tasks[0].puller} {row.tasks[0].roller}
-          </li>
-        ))}
-      </ul> */}
       <p>
         <Link to={`/view-farm/${farmId}`}>Back</Link>
       </p>

@@ -53,8 +53,8 @@ const RowView = () => {
       <p>Row Index: {rowIndex}</p>
       <p>Row Number: {selectedRow.number}</p>
       <p>Vine Count: {selectedRow.vineCount}</p>
-      <p>Puller: {selectedRow.tasks[0].puller}</p>
-      <p>Roller: {selectedRow.tasks[0].roller}</p>
+      <p>Puller: {selectedRow.tasks[0]?.puller}</p>
+      <p>Roller: {selectedRow.tasks[0]?.roller}</p>
 
       <h3>Assign Task</h3>
       <form onSubmit={handleAssignTask}>
