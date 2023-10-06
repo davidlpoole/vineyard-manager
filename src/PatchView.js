@@ -1,4 +1,3 @@
-// PatchView.js
 import React, { useState } from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
@@ -7,7 +6,6 @@ const PatchView = () => {
   const { farmId, patchId } = useParams()
   const history = useHistory()
 
-  // Retrieve farm data from local storage or any other source
   const farmData = JSON.parse(localStorage.getItem('farmData'))
   const selectedFarm = farmData[farmId]
   const selectedPatch = selectedFarm?.patches[patchId]
@@ -21,7 +19,7 @@ const PatchView = () => {
 
   const addRow = (e) => {
     selectedPatch.rows.push({ number: '', vineCount: '' })
-    setFakeCount(fakeCount + 1)
+    setFakeCount(fakeCount + 1) // just makes sure react re-renders
     saveToLocalStorage('farmData', farmData)
   }
 
@@ -31,7 +29,9 @@ const PatchView = () => {
 
   return (
     <div>
-      <h2>Farm Name: {selectedFarm.name} </h2>
+      <h2>
+        <Link to={`/view-farm/${farmId}`}>{selectedFarm.name}</Link>
+      </h2>
       <h3>Patch Name: {selectedPatch.name}</h3>
 
       <table>
@@ -95,10 +95,6 @@ const PatchView = () => {
         <button type="button" onClick={handleSave}>
           Submit
         </button>
-      </p>
-
-      <p>
-        <Link to={`/view-farm/${farmId}`}>Back</Link>
       </p>
     </div>
   )

@@ -1,9 +1,7 @@
-// DataSummarization.js
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 const DataSummarization = () => {
-  // Retrieve farm data from local storage or any other source
   const farmData = JSON.parse(localStorage.getItem('farmData')) || []
 
   return (
@@ -35,8 +33,8 @@ const DataSummarization = () => {
                   <td>{rowIndex}</td>
                   <td>{row.number}</td>
                   <td>{row.vineCount}</td>
-                  <td>{row.tasks[0] ? row.tasks[0].puller : 'N/A'}</td>
-                  <td>{row.tasks[0] ? row.tasks[0].roller : 'N/A'}</td>
+                  <td>{row.puller}</td>
+                  <td>{row.roller}</td>
                 </tr>
               ))
             )

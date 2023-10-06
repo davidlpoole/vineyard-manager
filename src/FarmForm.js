@@ -1,4 +1,3 @@
-// FarmForm.js
 import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
