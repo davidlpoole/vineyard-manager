@@ -1,5 +1,5 @@
 // PatchView.js
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
@@ -11,11 +11,18 @@ const PatchView = () => {
   const farmData = JSON.parse(localStorage.getItem('farmData'))
   const selectedFarm = farmData[farmId]
   const selectedPatch = selectedFarm?.patches[patchId]
+  const [fakeCount, setFakeCount] = useState(0)
 
   const handleSave = (e) => {
     e.preventDefault()
     saveToLocalStorage('farmData', farmData)
     history.push(`/view-farm/${farmId}`)
+  }
+
+  const addRow = (e) => {
+    selectedPatch.rows.push({ number: '', vineCount: '' })
+    setFakeCount(fakeCount + 1)
+    saveToLocalStorage('farmData', farmData)
   }
 
   if (!selectedPatch) {
@@ -24,11 +31,9 @@ const PatchView = () => {
 
   return (
     <div>
-      <h2>Patch Details</h2>
-      <p>Patch Name: {selectedPatch.name}</p>
-      <Link to={`/add-row/${farmId}/${patchId}`}>Add Row</Link>
+      <h2>Farm Name: {selectedFarm.name} </h2>
+      <h3>Patch Name: {selectedPatch.name}</h3>
 
-      <h3>Rows</h3>
       <table>
         <thead>
           <tr>
@@ -41,38 +46,39 @@ const PatchView = () => {
         <tbody>
           {selectedPatch.rows.map((row, index) => (
             <tr key={index}>
-              <td>{row.number}</td>
+              <td>
+                <input
+                  type="text"
+                  defaultValue={row.number}
+                  onChange={(e) => {
+                    row.number = e.target.value
+                  }}
+                />
+              </td>
               <td>
                 <input
                   type="text"
                   defaultValue={row.vineCount}
                   onChange={(e) => {
-                    farmData[farmId].patches[patchId].rows[index].vineCount =
-                      e.target.value
+                    row.vineCount = e.target.value
                   }}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  defaultValue={row.tasks?.puller}
+                  defaultValue={row.puller}
                   onChange={(e) => {
-                    farmData[farmId].patches[patchId].rows[index].tasks = {
-                      ...farmData[farmId].patches[patchId].rows[index].tasks,
-                      puller: e.target.value,
-                    }
+                    row.puller = e.target.value
                   }}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  defaultValue={row.tasks?.roller}
+                  defaultValue={row.roller}
                   onChange={(e) => {
-                    farmData[farmId].patches[patchId].rows[index].tasks = {
-                      ...farmData[farmId].patches[patchId].rows[index].tasks,
-                      roller: e.target.value,
-                    }
+                    row.roller = e.target.value
                   }}
                 />
               </td>
@@ -80,7 +86,11 @@ const PatchView = () => {
           ))}
         </tbody>
       </table>
-
+      <p>
+        <button type="button" onClick={addRow}>
+          Add row
+        </button>
+      </p>
       <p>
         <button type="button" onClick={handleSave}>
           Submit

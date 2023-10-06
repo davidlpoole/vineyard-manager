@@ -9,7 +9,7 @@ import RowForm from './RowForm'
 import DataSummarization from './DataSummarization'
 import FarmView from './FarmView'
 import PatchView from './PatchView'
-import RowView from './RowView'
+// import RowView from './RowView'
 
 const App = () => {
   return (
@@ -25,10 +25,10 @@ const App = () => {
         <Route path="/data-summary" component={DataSummarization} />
         <Route path="/view-farm/:farmId" component={FarmView} />
         <Route path="/view-patch/:farmId/:patchId" component={PatchView} />
-        <Route
+        {/* <Route
           path="/view-row/:farmId/:patchId/:rowIndex"
           component={RowView}
-        />
+        /> */}
         <Route component={NotFound} />
       </Switch>
     </Router>

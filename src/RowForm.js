@@ -48,7 +48,12 @@ const RowForm = () => {
       <h2>Add a Row</h2>
       <form onSubmit={handleAddRow}>
         <label>Row Number:</label>
-        <input type="text" value={rowNumber} onChange={handleRowNumberChange} />
+        <input
+          autoFocus
+          type="text"
+          value={rowNumber}
+          onChange={handleRowNumberChange}
+        />
         <label>Vine Count:</label>
         <input type="text" value={vineCount} onChange={handleVineCountChange} />
         <button type="submit">Add Row</button>
