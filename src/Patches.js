@@ -65,7 +65,7 @@ export const PatchView = () => {
             required
             onChange={handlePatchNameChange}
           />
-        </label>
+        </label>{' '}
         <button type="submit">Add Patch</button>
       </form>
     </div>

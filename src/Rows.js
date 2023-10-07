@@ -14,7 +14,7 @@ export const RowView = () => {
   const handleSave = (e) => {
     e.preventDefault()
     saveToLocalStorage('farmData', farmData)
-    history.push(`/view-farm/${farmId}`)
+    history.push(`/farms/${farmId}`)
   }
 
   const addRow = (e) => {
@@ -37,63 +37,67 @@ export const RowView = () => {
         {selectedPatch.name}
       </h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Row</th>
-            <th>Vines</th>
-            <th>Puller</th>
-            <th>Roller</th>
-          </tr>
-        </thead>
-        <tbody>
-          {selectedPatch.rows.map((row, index) => (
-            <tr key={index}>
-              <td>
-                <input
-                  type="text"
-                  defaultValue={row.number}
-                  onChange={(e) => {
-                    row.number = e.target.value
-                  }}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  defaultValue={row.vineCount}
-                  onChange={(e) => {
-                    row.vineCount = e.target.value
-                  }}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  defaultValue={row.puller}
-                  onChange={(e) => {
-                    row.puller = e.target.value
-                  }}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  defaultValue={row.roller}
-                  onChange={(e) => {
-                    row.roller = e.target.value
-                  }}
-                />
-              </td>
+      {selectedPatch.rows.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Row</th>
+              <th>Vines</th>
+              <th>Puller</th>
+              <th>Roller</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {selectedPatch.rows.map((row, index) => (
+              <tr key={index}>
+                <td>
+                  <input
+                    type="text"
+                    defaultValue={row.number}
+                    onChange={(e) => {
+                      row.number = e.target.value
+                    }}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    defaultValue={row.vineCount}
+                    onChange={(e) => {
+                      row.vineCount = e.target.value
+                    }}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    defaultValue={row.puller}
+                    onChange={(e) => {
+                      row.puller = e.target.value
+                    }}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    defaultValue={row.roller}
+                    onChange={(e) => {
+                      row.roller = e.target.value
+                    }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
       <p>
         <button type="button" onClick={addRow}>
           Add row
         </button>
       </p>
+
       <p>
         <button type="button" onClick={handleSave}>
           Save and go back

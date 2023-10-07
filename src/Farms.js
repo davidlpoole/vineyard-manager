@@ -42,7 +42,7 @@ export const FarmView = () => {
             required
             onChange={handleFarmNameChange}
           />
-        </label>
+        </label>{' '}
         <button type="submit">Add Farm</button>
       </form>
     </div>
