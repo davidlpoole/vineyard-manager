@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
-const FarmForm = () => {
+export const FarmView = () => {
   const history = useHistory()
   const [farmName, setFarmName] = useState('')
   const [farms, setFarms] = useState(
@@ -29,7 +29,7 @@ const FarmForm = () => {
       <ul>
         {farms.map((farm, index) => (
           <li key={index}>
-            <Link to={`/view-farm/${index}`}>{farm.name}</Link>
+            <Link to={`/farms/${index}`}>{farm.name}</Link>
           </li>
         ))}
       </ul>
@@ -48,5 +48,3 @@ const FarmForm = () => {
     </div>
   )
 }
-
-export default FarmForm

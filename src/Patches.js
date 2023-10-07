@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
-const FarmView = () => {
+export const PatchView = () => {
   const { farmId } = useParams()
   const history = useHistory()
 
@@ -38,18 +38,21 @@ const FarmView = () => {
     setFarms(updatedFarms)
     saveToLocalStorage('farmData', updatedFarms)
     setPatchName('')
-    history.push(`/view-farm/${farmId}`)
+    history.push(`/farms/${farmId}`)
   }
 
   return (
     <div>
-      <h2>Farm Name: {selectedFarm.name}</h2>
+      <h2>
+        <Link to={`/farms/`}>Farms</Link>
+        {' / '}
+        {selectedFarm.name}
+      </h2>
 
-      <h3>Patches</h3>
       <ul>
         {selectedFarm.patches.map((patch, index) => (
           <li key={index}>
-            <Link to={`/view-patch/${farmId}/${index}`}>{patch.name}</Link>
+            <Link to={`/farms/${farmId}/${index}`}>{patch.name}</Link>
           </li>
         ))}
       </ul>
@@ -65,11 +68,6 @@ const FarmView = () => {
         </label>
         <button type="submit">Add Patch</button>
       </form>
-      <p>
-        <Link to={`/`}>Back</Link>
-      </p>
     </div>
   )
 }
-
-export default FarmView

@@ -41,7 +41,6 @@ const DataSummarization = () => {
           )}
         </tbody>
       </table>
-      <Link to={`/`}>Home</Link>
     </div>
   )
 }

@@ -15,9 +15,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a {
+  color: rgb(0, 98, 255);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+td > input {
+  width: 15ch;
+}
+
+table,
+th,
+td {
+  padding: 5px;
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid grey;
 }
 
 html,

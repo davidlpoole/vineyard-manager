@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
-const PatchView = () => {
+export const RowView = () => {
   const { farmId, patchId } = useParams()
   const history = useHistory()
 
@@ -29,8 +29,13 @@ const PatchView = () => {
 
   return (
     <div>
-      <h2>{selectedFarm.name}</h2>
-      <h3>Patch Name: {selectedPatch.name}</h3>
+      <h2>
+        <Link to={`/farms/`}>Farms</Link>
+        {' / '}
+        <Link to={`/farms/${farmId}`}>{selectedFarm.name}</Link>
+        {' / '}
+        {selectedPatch.name}
+      </h2>
 
       <table>
         <thead>
@@ -93,11 +98,7 @@ const PatchView = () => {
         <button type="button" onClick={handleSave}>
           Save and go back
         </button>
-        <br />
-        <Link to={`/view-farm/${farmId}`}>Discard and go back</Link>
       </p>
     </div>
   )
 }
-
-export default PatchView
