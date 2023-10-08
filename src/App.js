@@ -1,13 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Root from './root'
-import Outlet from './Outlet'
-import NotFound from './NotFound'
-import DataSummary from './DataSummary'
-import { FarmView } from './Farms'
-import { PatchView } from './Patches'
-import { RowView } from './Rows'
-import { Dashboard } from './Dashboard'
+
+import Root from './components/root'
+import Outlet from './components/Outlet'
+import NotFound from './components/NotFound'
+import DataSummary from './components/DataSummary'
+import { FarmView } from './components/Farms'
+import { PatchView } from './components/Patches'
+import { RowView } from './components/Rows'
+import { Dashboard } from './components/Dashboard'
 
 const App = () => {
   return (

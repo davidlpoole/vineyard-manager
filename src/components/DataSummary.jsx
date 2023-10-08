@@ -1,9 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const DataSummarization = () => {
   const farmData = JSON.parse(localStorage.getItem('farmData')) || []
-  const totalVines = 0
 
   return (
     <div>

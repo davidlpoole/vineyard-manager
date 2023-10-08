@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
-import { saveToLocalStorage } from './utility'
+import { Link } from 'react-router-dom'
+import { saveToLocalStorage } from '../utility'
 
 export const FarmView = () => {
-  const history = useHistory()
   const [farmName, setFarmName] = useState('')
   const [farms, setFarms] = useState(
     JSON.parse(localStorage.getItem('farmData')) || []

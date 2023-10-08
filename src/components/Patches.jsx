@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
-import { saveToLocalStorage } from './utility'
+import { saveToLocalStorage } from '../utility'
 
 export const PatchView = () => {
   const { farmId } = useParams()
