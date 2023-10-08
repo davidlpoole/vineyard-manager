@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { saveToLocalStorage } from '../utility'
 
@@ -19,9 +19,28 @@ export const RowView = () => {
   const [defaultPuller, setDefaultPuller] = useState('')
   const [defaultRoller, setDefaultRoller] = useState('')
 
-  const handleSave = () => {
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+
+  useEffect(() => {
+    // Calculate the highest existing row number
+    const highestRowNumber = Math.max(
+      ...selectedPatch.rows.map((row) => row.number),
+      0
+    )
+
+    // Set startRow and endRow based on the highest row number
+    setStartRow(highestRowNumber + 1)
+    setEndRow(highestRowNumber + 1)
+  }, [selectedPatch.rows]) // Run this effect whenever selectedPatch.rows changes
+
+  const handleSaveChanges = () => {
     saveToLocalStorage('farmData', farmData)
+    setHasUnsavedChanges(false)
     // history.push(`/farms/${farmId}`)
+  }
+
+  const handleDiscardChanges = () => {
+    window.location.reload() // Reloads the page, resetting the component's state
   }
 
   const handleDeleteRow = (farmId, patchId, rowIndex) => {
@@ -36,17 +55,20 @@ export const RowView = () => {
       updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
       setFarmData(updatedFarmData)
     }
+    setHasUnsavedChanges(true)
   }
 
   const handleInputChange = (e, index, field) => {
     const updatedFarmData = [...farmData]
     updatedFarmData[farmId].patches[patchId].rows[index][field] = e.target.value
     setFarmData(updatedFarmData)
+    setHasUnsavedChanges(true)
   }
 
   const handleFormSubmit = (e) => {
-    e.preventDefault() // Prevents the default form submission behavior
-    handleAddMultipleRows() // Calls the function to add multiple rows
+    e.preventDefault()
+    handleAddMultipleRows()
+    setHasUnsavedChanges(true) // Updated to indicate unsaved changes
   }
 
   const handleAddMultipleRows = () => {
@@ -119,7 +141,10 @@ export const RowView = () => {
           />
         </td>
         <td>
-          <button onClick={() => handleDeleteRow(farmId, patchId, index)}>
+          <button
+            class="destroy"
+            onClick={() => handleDeleteRow(farmId, patchId, index)}
+          >
             Delete
           </button>
         </td>
@@ -149,7 +174,7 @@ export const RowView = () => {
               <th>Vine Count</th>
               <th>Puller</th>
               <th>Roller</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>{renderRows()}</tbody>
@@ -157,8 +182,20 @@ export const RowView = () => {
       )}
 
       <p>
-        <button type="button" onClick={handleSave}>
-          Save
+        <button
+          type="button"
+          disabled={!hasUnsavedChanges}
+          onClick={handleSaveChanges}
+        >
+          Save changes
+        </button>{' '}
+        <button
+          type="button"
+          className="destroy"
+          disabled={!hasUnsavedChanges}
+          onClick={handleDiscardChanges}
+        >
+          Discard changes
         </button>
       </p>
 
