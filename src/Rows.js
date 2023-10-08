@@ -18,21 +18,21 @@ export const RowView = () => {
 
   const handleSave = () => {
     saveToLocalStorage('farmData', farmData)
-    history.push(`/farms/${farmId}`)
+    // history.push(`/farms/${farmId}`)
   }
 
-  const addRow = () => {
-    const updatedFarmData = [...farmData]
-    const selectedPatchCopy = { ...updatedFarmData[farmId].patches[patchId] }
-    selectedPatchCopy.rows.push({
-      number: '',
-      vineCount: '',
-      puller: '',
-      roller: '',
-    })
-    updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
-    setFarmData(updatedFarmData)
-  }
+  // const addRow = () => {
+  //   const updatedFarmData = [...farmData]
+  //   const selectedPatchCopy = { ...updatedFarmData[farmId].patches[patchId] }
+  //   selectedPatchCopy.rows.push({
+  //     number: '',
+  //     vineCount: '',
+  //     puller: '',
+  //     roller: '',
+  //   })
+  //   updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
+  //   setFarmData(updatedFarmData)
+  // }
 
   const handleDeleteRow = (farmId, patchId, rowIndex) => {
     const updatedFarmData = [...farmData]
@@ -69,7 +69,7 @@ export const RowView = () => {
 
     for (let i = start; start <= end ? i <= end : i >= end; i += increment) {
       selectedPatchCopy.rows.push({
-        number: i.toString(),
+        number: i,
         vineCount: defaultVineCount || '',
         puller: '',
         roller: '',
@@ -80,8 +80,12 @@ export const RowView = () => {
     setFarmData(updatedFarmData)
   }
 
+  const sortedRows = selectedPatch.rows
+    .slice()
+    .sort((a, b) => parseInt(a.number) - parseInt(b.number))
+
   const renderRows = () => {
-    return selectedPatch.rows.map((row, index) => (
+    return sortedRows.map((row, index) => (
       <tr key={index}>
         <td>
           <input
@@ -152,13 +156,19 @@ export const RowView = () => {
       )}
 
       <p>
-        <button type="button" onClick={addRow}>
-          Add row
+        <button type="button" onClick={handleSave}>
+          Save
         </button>
       </p>
 
+      {/* <p>
+        <button type="button" onClick={addRow}>
+          Add row
+        </button>
+      </p> */}
+
       <div>
-        <h3>Add Multiple Rows</h3>
+        <h3>Add Rows</h3>
         <table>
           <thead>
             <tr>
@@ -200,12 +210,6 @@ export const RowView = () => {
           </tbody>
         </table>
       </div>
-
-      <p>
-        <button type="button" onClick={handleSave}>
-          Save and go back
-        </button>
-      </p>
     </div>
   )
 }
