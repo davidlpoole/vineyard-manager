@@ -33,19 +33,19 @@ export const RowView = () => {
     setEndRow(highestRowNumber + 1)
   }, [selectedPatch.rows]) // Run this effect whenever selectedPatch.rows changes
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = (e) => {
+    e.preventDefault()
     saveToLocalStorage('farmData', farmData)
     setHasUnsavedChanges(false)
     // history.push(`/farms/${farmId}`)
   }
 
-  const handleDiscardChanges = () => {
-    window.location.reload() // Reloads the page, resetting the component's state
+  const handleDiscardChanges = (e) => {
+    window.location.reload()
   }
 
   const handleDeleteRow = (farmId, patchId, rowIndex) => {
     const updatedFarmData = [...farmData]
-
     if (
       farmId < updatedFarmData.length &&
       patchId < updatedFarmData[farmId].patches.length
@@ -142,7 +142,7 @@ export const RowView = () => {
         </td>
         <td>
           <button
-            class="destroy"
+            className="destroy"
             onClick={() => handleDeleteRow(farmId, patchId, index)}
           >
             Delete
@@ -165,39 +165,36 @@ export const RowView = () => {
         {' / '}
         {selectedPatch.name}
       </h2>
-
-      {selectedPatch.rows.length > 0 && (
-        <table>
-          <thead>
-            <tr>
-              <th>Row Number</th>
-              <th>Vine Count</th>
-              <th>Puller</th>
-              <th>Roller</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>{renderRows()}</tbody>
-        </table>
-      )}
-
-      <p>
-        <button
-          type="button"
-          disabled={!hasUnsavedChanges}
-          onClick={handleSaveChanges}
-        >
-          Save changes
-        </button>{' '}
-        <button
-          type="button"
-          className="destroy"
-          disabled={!hasUnsavedChanges}
-          onClick={handleDiscardChanges}
-        >
-          Discard changes
-        </button>
-      </p>
+      <form onSubmit={handleSaveChanges} onReset={handleDiscardChanges}>
+        {selectedPatch.rows.length > 0 && (
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th>Row Number</th>
+                  <th>Vine Count</th>
+                  <th>Puller</th>
+                  <th>Roller</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>{renderRows()}</tbody>
+            </table>
+          </>
+        )}
+        <p>
+          <button type="submit" disabled={!hasUnsavedChanges}>
+            Save changes
+          </button>{' '}
+          <button
+            type="reset"
+            className="destroy"
+            disabled={!hasUnsavedChanges}
+          >
+            Discard changes
+          </button>
+        </p>
+      </form>
 
       {/* <p>
         <button type="button" onClick={addRow}>
