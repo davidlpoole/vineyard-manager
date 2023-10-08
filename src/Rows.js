@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useParams, useHistory, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { saveToLocalStorage } from './utility'
 
 export const RowView = () => {
   const { farmId, patchId } = useParams()
-  const history = useHistory()
+  // const history = useHistory()
 
   const [farmData, setFarmData] = useState(
     JSON.parse(localStorage.getItem('farmData')) || []
@@ -12,27 +12,17 @@ export const RowView = () => {
   const selectedFarm = farmData[farmId]
   const selectedPatch = selectedFarm?.patches[patchId]
 
+  // state variables for 'add row' form
   const [startRow, setStartRow] = useState(1)
-  const [endRow, setEndRow] = useState(10)
+  const [endRow, setEndRow] = useState(1)
   const [defaultVineCount, setDefaultVineCount] = useState('')
+  const [defaultPuller, setDefaultPuller] = useState('')
+  const [defaultRoller, setDefaultRoller] = useState('')
 
   const handleSave = () => {
     saveToLocalStorage('farmData', farmData)
     // history.push(`/farms/${farmId}`)
   }
-
-  // const addRow = () => {
-  //   const updatedFarmData = [...farmData]
-  //   const selectedPatchCopy = { ...updatedFarmData[farmId].patches[patchId] }
-  //   selectedPatchCopy.rows.push({
-  //     number: '',
-  //     vineCount: '',
-  //     puller: '',
-  //     roller: '',
-  //   })
-  //   updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
-  //   setFarmData(updatedFarmData)
-  // }
 
   const handleDeleteRow = (farmId, patchId, rowIndex) => {
     const updatedFarmData = [...farmData]
@@ -62,24 +52,36 @@ export const RowView = () => {
 
     const start = parseInt(startRow, 10)
     const end = parseInt(endRow, 10)
-    const increment = start <= end ? 1 : -1 // Determine the increment direction
 
+    // increase the values by same amount before next render
+    const diff = end - start
+    setStartRow(end + 1)
+    setEndRow(end + diff + 1)
+    console.log(start, end, diff)
+
+    // Determine the increment direction
+    const increment = start <= end ? 1 : -1
+
+    // copy the data to edit
     const updatedFarmData = [...farmData]
     const selectedPatchCopy = { ...updatedFarmData[farmId].patches[patchId] }
 
+    // loop and add rows
     for (let i = start; start <= end ? i <= end : i >= end; i += increment) {
       selectedPatchCopy.rows.push({
         number: i,
         vineCount: defaultVineCount || '',
-        puller: '',
-        roller: '',
+        puller: defaultPuller || '',
+        roller: defaultRoller || '',
       })
     }
 
+    // update the state
     updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
     setFarmData(updatedFarmData)
   }
 
+  // sort the rows by row number (increasing) TODO: Enable changing sort
   const sortedRows = selectedPatch.rows
     .slice()
     .sort((a, b) => parseInt(a.number) - parseInt(b.number))
@@ -88,12 +90,7 @@ export const RowView = () => {
     return sortedRows.map((row, index) => (
       <tr key={index}>
         <td>
-          <input
-            type="number"
-            defaultValue={row.number}
-            min={1}
-            onChange={(e) => handleInputChange(e, index, 'number')}
-          />
+          <div>{row.number}</div>
         </td>
         <td>
           <input
@@ -174,7 +171,21 @@ export const RowView = () => {
             <tr>
               <th>Start Row</th>
               <th>End Row</th>
-              <th>Default Vine Count</th>
+              <th>
+                Vine Count
+                <br />
+                (Optional)
+              </th>
+              <th>
+                Puller
+                <br />
+                (Optional)
+              </th>
+              <th>
+                Roller
+                <br />
+                (Optional)
+              </th>
               <th>Action</th>
             </tr>
           </thead>
@@ -204,7 +215,21 @@ export const RowView = () => {
                 />
               </td>
               <td>
-                <button onClick={handleAddMultipleRows}>Add Rows</button>
+                <input
+                  type="text"
+                  value={defaultPuller}
+                  onChange={(e) => setDefaultPuller(e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value={defaultRoller}
+                  onChange={(e) => setDefaultRoller(e.target.value)}
+                />
+              </td>
+              <td>
+                <button onClick={handleAddMultipleRows}>Add</button>
               </td>
             </tr>
           </tbody>
