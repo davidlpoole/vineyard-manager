@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory, Link } from 'react-router-dom'
-import { saveToLocalStorage } from './utility' // Assuming you have a utility file for saving to local storage
+import { saveToLocalStorage } from './utility'
 
 export const RowView = () => {
   const { farmId, patchId } = useParams()
@@ -12,6 +12,10 @@ export const RowView = () => {
   const selectedFarm = farmData[farmId]
   const selectedPatch = selectedFarm?.patches[patchId]
 
+  const [startRow, setStartRow] = useState(1)
+  const [endRow, setEndRow] = useState(10)
+  const [defaultVineCount, setDefaultVineCount] = useState('')
+
   const handleSave = () => {
     saveToLocalStorage('farmData', farmData)
     history.push(`/farms/${farmId}`)
@@ -20,7 +24,12 @@ export const RowView = () => {
   const addRow = () => {
     const updatedFarmData = [...farmData]
     const selectedPatchCopy = { ...updatedFarmData[farmId].patches[patchId] }
-    selectedPatchCopy.rows.push({ number: '', vineCount: '' })
+    selectedPatchCopy.rows.push({
+      number: '',
+      vineCount: '',
+      puller: '',
+      roller: '',
+    })
     updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
     setFarmData(updatedFarmData)
   }
@@ -42,6 +51,32 @@ export const RowView = () => {
   const handleInputChange = (e, index, field) => {
     const updatedFarmData = [...farmData]
     updatedFarmData[farmId].patches[patchId].rows[index][field] = e.target.value
+    setFarmData(updatedFarmData)
+  }
+
+  const handleAddMultipleRows = () => {
+    if (!startRow || !endRow) {
+      alert('Please enter a start row and end row.')
+      return
+    }
+
+    const start = parseInt(startRow, 10)
+    const end = parseInt(endRow, 10)
+    const increment = start <= end ? 1 : -1 // Determine the increment direction
+
+    const updatedFarmData = [...farmData]
+    const selectedPatchCopy = { ...updatedFarmData[farmId].patches[patchId] }
+
+    for (let i = start; start <= end ? i <= end : i >= end; i += increment) {
+      selectedPatchCopy.rows.push({
+        number: i.toString(),
+        vineCount: defaultVineCount || '',
+        puller: '',
+        roller: '',
+      })
+    }
+
+    updatedFarmData[farmId].patches[patchId] = selectedPatchCopy
     setFarmData(updatedFarmData)
   }
 
@@ -68,14 +103,14 @@ export const RowView = () => {
           <input
             type="text"
             defaultValue={row.puller}
-            onChange={(e) => handleInputChange(e, index, 'vineCount')}
+            onChange={(e) => handleInputChange(e, index, 'puller')}
           />
         </td>
         <td>
           <input
             type="text"
             defaultValue={row.roller}
-            onChange={(e) => handleInputChange(e, index, 'vineCount')}
+            onChange={(e) => handleInputChange(e, index, 'roller')}
           />
         </td>
         <td>
@@ -105,10 +140,11 @@ export const RowView = () => {
         <table>
           <thead>
             <tr>
-              <th>Row</th>
-              <th>Vines</th>
+              <th>Row Number</th>
+              <th>Vine Count</th>
               <th>Puller</th>
               <th>Roller</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>{renderRows()}</tbody>
@@ -120,6 +156,50 @@ export const RowView = () => {
           Add row
         </button>
       </p>
+
+      <div>
+        <h3>Add Multiple Rows</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Start Row</th>
+              <th>End Row</th>
+              <th>Default Vine Count</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  type="number"
+                  min={1}
+                  value={startRow}
+                  onChange={(e) => setStartRow(e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  min={1}
+                  value={endRow}
+                  onChange={(e) => setEndRow(e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  value={defaultVineCount}
+                  onChange={(e) => setDefaultVineCount(e.target.value)}
+                />
+              </td>
+              <td>
+                <button onClick={handleAddMultipleRows}>Add Rows</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p>
         <button type="button" onClick={handleSave}>
