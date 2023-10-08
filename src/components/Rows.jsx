@@ -44,6 +44,11 @@ export const RowView = () => {
     setFarmData(updatedFarmData)
   }
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault() // Prevents the default form submission behavior
+    handleAddMultipleRows() // Calls the function to add multiple rows
+  }
+
   const handleAddMultipleRows = () => {
     if (!startRow || !endRow) {
       alert('Please enter a start row and end row.')
@@ -57,7 +62,6 @@ export const RowView = () => {
     const diff = end - start
     setStartRow(end + 1)
     setEndRow(end + diff + 1)
-    console.log(start, end, diff)
 
     // Determine the increment direction
     const increment = start <= end ? 1 : -1
@@ -166,74 +170,78 @@ export const RowView = () => {
 
       <div>
         <h3>Add Rows</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Start Row</th>
-              <th>End Row</th>
-              <th>
-                Vine Count
-                <br />
-                (Optional)
-              </th>
-              <th>
-                Puller
-                <br />
-                (Optional)
-              </th>
-              <th>
-                Roller
-                <br />
-                (Optional)
-              </th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input
-                  type="number"
-                  min={1}
-                  value={startRow}
-                  onChange={(e) => setStartRow(e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  min={1}
-                  value={endRow}
-                  onChange={(e) => setEndRow(e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  value={defaultVineCount}
-                  onChange={(e) => setDefaultVineCount(e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={defaultPuller}
-                  onChange={(e) => setDefaultPuller(e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={defaultRoller}
-                  onChange={(e) => setDefaultRoller(e.target.value)}
-                />
-              </td>
-              <td>
-                <button onClick={handleAddMultipleRows}>Add</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <form onSubmit={handleFormSubmit}>
+          {' '}
+          {/* 1. Add form element and onSubmit handler */}
+          <table>
+            <thead>
+              <tr>
+                <th>Start Row</th>
+                <th>End Row</th>
+                <th>
+                  Vine Count
+                  <br />
+                  (Optional)
+                </th>
+                <th>
+                  Puller
+                  <br />
+                  (Optional)
+                </th>
+                <th>
+                  Roller
+                  <br />
+                  (Optional)
+                </th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="number"
+                    min={1}
+                    value={startRow}
+                    onChange={(e) => setStartRow(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min={1}
+                    value={endRow}
+                    onChange={(e) => setEndRow(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    value={defaultVineCount}
+                    onChange={(e) => setDefaultVineCount(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={defaultPuller}
+                    onChange={(e) => setDefaultPuller(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={defaultRoller}
+                    onChange={(e) => setDefaultRoller(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <button type="submit">Add</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
   )
