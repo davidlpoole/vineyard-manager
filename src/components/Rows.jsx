@@ -60,7 +60,8 @@ export const RowView = () => {
 
   const handleInputChange = (e, index, field) => {
     const updatedFarmData = [...farmData]
-    updatedFarmData[farmId].patches[patchId].rows[index][field] = e.target.value
+    const inputValue = e.target.value.toUpperCase() // Convert to uppercase
+    updatedFarmData[farmId].patches[patchId].rows[index][field] = inputValue
     setFarmData(updatedFarmData)
     setHasUnsavedChanges(true)
   }
