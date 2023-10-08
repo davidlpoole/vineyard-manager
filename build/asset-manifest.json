@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/vineyard-manager/static/css/main.fb58e5f9.css",
+    "main.js": "/vineyard-manager/static/js/main.6e3cdc56.js",
+    "index.html": "/vineyard-manager/index.html",
+    "main.fb58e5f9.css.map": "/vineyard-manager/static/css/main.fb58e5f9.css.map",
+    "main.6e3cdc56.js.map": "/vineyard-manager/static/js/main.6e3cdc56.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fb58e5f9.css",
+    "static/js/main.6e3cdc56.js"
+  ]
+}
