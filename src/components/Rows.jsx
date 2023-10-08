@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, Prompt } from 'react-router-dom'
 import { saveToLocalStorage } from '../utility'
 
 export const RowView = () => {
@@ -193,6 +193,10 @@ export const RowView = () => {
           >
             Discard changes
           </button>
+          <Prompt
+            when={hasUnsavedChanges}
+            message="You have unsaved changes. Are you sure you want to leave?"
+          />
         </p>
       </form>
 

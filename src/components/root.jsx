@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function Root() {
   return (
@@ -8,13 +8,15 @@ export default function Root() {
         <nav>
           <ul>
             <li>
-              <Link to={`/`}>Dashboard</Link>
+              <NavLink to={`/`} exact>
+                Dashboard
+              </NavLink>
             </li>
             <li>
-              <Link to={`/farms/`}>Data Entry</Link>
+              <NavLink to={`/farms/`}>Data Entry</NavLink>
             </li>
             <li>
-              <Link to={`/data-summary/`}>Data Summary</Link>
+              <NavLink to={`/data-summary/`}>Data Summary</NavLink>
             </li>
           </ul>
         </nav>
