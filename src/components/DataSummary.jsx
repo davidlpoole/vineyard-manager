@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DataSummarization = () => {
+export default function DataSummary() {
   const farmData = JSON.parse(localStorage.getItem('farmData')) || []
 
   return (
@@ -63,5 +63,3 @@ const DataSummarization = () => {
     </div>
   )
 }
-
-export default DataSummarization

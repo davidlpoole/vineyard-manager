@@ -5,12 +5,12 @@ import Root from './components/root'
 import Outlet from './components/Outlet'
 import NotFound from './components/NotFound'
 import DataSummary from './components/DataSummary'
-import { FarmView } from './components/Farms'
-import { PatchView } from './components/Patches'
-import { RowView } from './components/Rows'
-import { Dashboard } from './components/Dashboard'
+import FarmView from './components/Farms'
+import PatchView from './components/Patches'
+import RowView from './components/Rows'
+import Dashboard from './components/Dashboard'
 
-const App = () => {
+function App() {
   return (
     <Router>
       <Root />

@@ -1,4 +1,4 @@
-export const Dashboard = () => {
+export default function Dashboard() {
   return (
     <div id="zero-state">
       <h2>Welcome to Vineyard Manager</h2>

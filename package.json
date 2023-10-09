@@ -1,6 +1,6 @@
 {
   "name": "vineyard-manager",
-  "homepage": "https://davidlpoole.github.io/vineyard-manager",
+  "homepage": "https://davidlpoole.github.io/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,8 +11,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "predeploy": "npm run build",

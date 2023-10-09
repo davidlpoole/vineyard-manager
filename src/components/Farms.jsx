@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { saveToLocalStorage } from '../utility'
 
-export const FarmView = () => {
+export default function FarmView() {
   const [farmName, setFarmName] = useState('')
   const [farms, setFarms] = useState(
     JSON.parse(localStorage.getItem('farmData')) || []
   )
 
-  const handleFarmNameChange = (e) => {
+  function handleFarmNameChange(e) {
     setFarmName(e.target.value)
   }
 
-  const handleAddFarm = (e) => {
+  function handleAddFarm(e) {
     e.preventDefault()
     const newFarm = { name: farmName, patches: [] }
     const updatedFarms = [...farms, newFarm]
