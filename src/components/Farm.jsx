@@ -8,10 +8,6 @@ export default function FarmView() {
     JSON.parse(localStorage.getItem('farmData')) || []
   )
 
-  function handleFarmNameChange(e) {
-    setFarmName(e.target.value)
-  }
-
   function handleAddFarm(e) {
     e.preventDefault()
     const newFarm = { name: farmName, patches: [] }
@@ -39,7 +35,9 @@ export default function FarmView() {
             placeholder="Farm name"
             value={farmName}
             required
-            onChange={handleFarmNameChange}
+            onChange={(e) => {
+              setFarmName(e.target.value)
+            }}
           />
         </label>{' '}
         <button type="submit">Add Farm</button>

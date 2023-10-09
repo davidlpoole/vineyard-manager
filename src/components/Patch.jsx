@@ -18,10 +18,6 @@ export default function PatchView() {
     return <div>Invalid Farm ID</div>
   }
 
-  const handlePatchNameChange = (e) => {
-    setPatchName(e.target.value)
-  }
-
   const handleAddPatch = (e) => {
     e.preventDefault()
 
@@ -63,7 +59,7 @@ export default function PatchView() {
             placeholder="Patch name"
             value={patchName}
             required
-            onChange={handlePatchNameChange}
+            onChange={(e) => setPatchName(e.target.value)}
           />
         </label>{' '}
         <button type="submit">Add Patch</button>

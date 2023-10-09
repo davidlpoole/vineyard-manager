@@ -5,9 +5,9 @@ import Root from './components/root'
 import Outlet from './components/Outlet'
 import NotFound from './components/NotFound'
 import DataSummary from './components/DataSummary'
-import FarmView from './components/Farms'
-import PatchView from './components/Patches'
-import RowView from './components/Rows'
+import FarmView from './components/Farm'
+import PatchView from './components/Patch'
+import RowView from './components/Row'
 import Dashboard from './components/Dashboard'
 
 function App() {
