@@ -1,6 +1,2 @@
 node_modules
-src/archived/PatchForm.js
-src/archived/RowForm.js
-src/archived/RowStateContext.js
-src/archived/RowView.js
-src/archived/TaskAssignment.js
+/build
