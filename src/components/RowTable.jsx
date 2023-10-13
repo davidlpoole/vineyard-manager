@@ -45,7 +45,11 @@ export default function RowTable({
           />
         </td>
         <td>
-          <button className="destroy" onClick={() => handleDeleteRow(index)}>
+          <button
+            type="button"
+            className="destroy"
+            onClick={() => handleDeleteRow(index)}
+          >
             Delete
           </button>
         </td>
