@@ -13,10 +13,13 @@ export default function Root() {
               </NavLink>
             </li>
             <li>
-              <NavLink to={`/farms/`}>Data Entry</NavLink>
+              <NavLink to={`/farms/`}>Farms</NavLink>
             </li>
             <li>
-              <NavLink to={`/data-summary/`}>Data Export</NavLink>
+              <NavLink to={`/export/`}>Data Export</NavLink>
+            </li>
+            <li>
+              <NavLink to={`/people/`}>People</NavLink>
             </li>
           </ul>
         </nav>

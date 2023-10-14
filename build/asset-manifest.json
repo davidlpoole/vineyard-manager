@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.fb58e5f9.css",
-    "main.js": "/static/js/main.a2a97bcf.js",
-    "index.html": "/index.html",
-    "main.fb58e5f9.css.map": "/static/css/main.fb58e5f9.css.map",
-    "main.a2a97bcf.js.map": "/static/js/main.a2a97bcf.js.map"
+    "main.css": "/vineyard-manager/static/css/main.8d4b51b6.css",
+    "main.js": "/vineyard-manager/static/js/main.670a903e.js",
+    "index.html": "/vineyard-manager/index.html",
+    "main.8d4b51b6.css.map": "/vineyard-manager/static/css/main.8d4b51b6.css.map",
+    "main.670a903e.js.map": "/vineyard-manager/static/js/main.670a903e.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb58e5f9.css",
-    "static/js/main.a2a97bcf.js"
+    "static/css/main.8d4b51b6.css",
+    "static/js/main.670a903e.js"
   ]
 }

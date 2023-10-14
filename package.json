@@ -1,6 +1,6 @@
 {
   "name": "vineyard-manager",
-  "homepage": "https://davidlpoole.github.io/",
+  "homepage": "https://davidlpoole.github.io/vineyard-manager",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

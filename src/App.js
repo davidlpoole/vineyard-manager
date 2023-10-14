@@ -9,10 +9,11 @@ import FarmView from './components/Farm'
 import PatchView from './components/Patch'
 import RowView from './components/Row'
 import Dashboard from './components/Dashboard'
+import PersonView from './components/Person'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/vineyard-manager">
       <Root />
       <Outlet>
         <Switch>
@@ -20,7 +21,8 @@ function App() {
           <Route path="/farms/" exact component={FarmView} />
           <Route path="/farms/:farmId" exact component={PatchView} />
           <Route path="/farms/:farmId/:patchId" component={RowView} />
-          <Route path="/data-summary" component={DataSummary} />
+          <Route path="/export" component={DataSummary} />
+          <Route path="/people" component={PersonView} />
           <Route component={NotFound} />
         </Switch>
       </Outlet>
