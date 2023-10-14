@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { saveToLocalStorage } from '../utility'
+import { TableComponent } from './TableComponent'
 
 export default function PersonView() {
   const [person, setPerson] = useState({})
   const [people, setPeople] = useState(
-    JSON.parse(localStorage.getItem('peopleData')) || []
+    JSON.parse(localStorage.getItem('peopleData')) || {}
   )
 
   function handleAddFarm(e) {
     e.preventDefault()
-    const updatedPeople = [...people, person]
+    const shortName = person.shortName
+    const fullName = person.fullName
+
+    const updatedPeople = {
+      ...people,
+      [shortName]: fullName,
+    }
+
     setPeople(updatedPeople)
     saveToLocalStorage('peopleData', updatedPeople)
     setPerson({})
@@ -20,35 +27,25 @@ export default function PersonView() {
   return (
     <div>
       <h2>People</h2>
-      <ul>
-        {people
-          .sort((a, b) => a.code.toUpperCase() > b.code.toUpperCase())
-          .map((person, index) => (
-            <li key={index}>
-              <Link to={`/people/${index}`}>
-                {person.code}: {person.name}
-              </Link>
-            </li>
-          ))}
-      </ul>
+      <TableComponent data={people} />
       <form onSubmit={handleAddFarm}>
         <label>
           <input
             type="text"
-            placeholder="Code"
-            defaultValue={person.code}
+            placeholder="Short Name"
+            defaultValue={person.shortName}
             required
             onChange={(e) => {
-              setPerson({ ...person, code: e.target.value })
+              setPerson({ ...person, shortName: e.target.value })
             }}
           />{' '}
           <input
             type="text"
-            placeholder="Name"
-            defaultValue={person.name}
+            placeholder="Full Name"
+            defaultValue={person.fullName}
             required
             onChange={(e) => {
-              setPerson({ ...person, name: e.target.value })
+              setPerson({ ...person, fullName: e.target.value })
             }}
           />
         </label>{' '}
