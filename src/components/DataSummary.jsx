@@ -25,10 +25,10 @@ export default function DataSummary() {
           <tbody>
             {farmData.map((farm, farmIndex) =>
               farm.patches.map((patch, patchIndex) => {
-                let totalVineCount = 0 // Initialize total vine count for this patch
+                // let totalVineCount = 0 // Initialize total vine count for this patch
 
                 const rowsContent = patch.rows.map((row, rowIndex) => {
-                  totalVineCount += Number(row.vineCount) // Accumulate the vine count
+                  // totalVineCount += Number(row.vineCount) // Accumulate the vine count
 
                   return (
                     <tr key={`${farmIndex}-${patchIndex}-${rowIndex}`}>
@@ -46,11 +46,12 @@ export default function DataSummary() {
                 return (
                   <React.Fragment key={`${farmIndex}-${patchIndex}`}>
                     {rowsContent}
+                    {/* display a summary for each farm/patch
                     <tr key={`total-${farmIndex}-${patchIndex}`}>
                       <td colSpan="6">
                         {farm.name} {patch.name} Vine Count: {totalVineCount}
                       </td>
-                    </tr>
+                    </tr> */}
                   </React.Fragment>
                 )
               })

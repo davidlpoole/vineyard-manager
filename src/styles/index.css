@@ -16,7 +16,7 @@ body {
 }
 
 a {
-  color: rgb(0, 98, 255);
+  color: hsl(225, 98%, 58%);
   text-decoration: none;
 }
 
@@ -26,7 +26,7 @@ a:hover {
 
 td > input {
   width: 10ch;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 table,
@@ -79,7 +79,7 @@ button:disabled {
 textarea:hover,
 input:hover,
 button:hover {
-  box-shadow: 0 0px 1px hsl(207, 100%, 50%), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+  box-shadow: 0 0px 1px hsl(224, 98%, 58%), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }
 
 button:active {
@@ -186,6 +186,10 @@ i {
 
 #sidebar li {
   margin: 0.25rem 0;
+}
+
+li {
+  list-style: none;
 }
 
 #sidebar nav a {

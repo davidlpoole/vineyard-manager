@@ -16,7 +16,7 @@ export default function Root() {
               <NavLink to={`/farms/`}>Data Entry</NavLink>
             </li>
             <li>
-              <NavLink to={`/data-summary/`}>Data Summary</NavLink>
+              <NavLink to={`/data-summary/`}>Data Export</NavLink>
             </li>
           </ul>
         </nav>
