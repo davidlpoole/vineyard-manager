@@ -1,42 +1,26 @@
-import { TableComponent } from './TableComponent'
+import { useQuery } from '@tanstack/react-query'
 
-function getVineCount(farmData, key, peopleData) {
-  const aggregatedTotals = {}
-
-  farmData.forEach((farm) => {
-    farm.patches.forEach((patch) => {
-      patch.rows.forEach((row) => {
-        const puller = peopleData[row[key]] || row[key]
-        const vineCount = parseInt(row.vineCount)
-
-        if (aggregatedTotals[puller]) {
-          aggregatedTotals[puller] += vineCount
-        } else {
-          aggregatedTotals[puller] = vineCount
-        }
-      })
-    })
-  })
-
-  return aggregatedTotals
+function DataSummary({ data }) {
+  return data.map((employee) => (
+    <div key={employee.id}>
+      {employee.fullName} ({employee.code}): {employee.vineCount} vines
+    </div>
+  ))
 }
 
 export default function Dashboard() {
-  const farmData = JSON.parse(localStorage.getItem('farmData')) || []
-  const peopleData = JSON.parse(localStorage.getItem('peopleData')) || []
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['data'],
+    queryFn: () =>
+      fetch('http://localhost:3000/api/v1/counts').then((res) => res.json()),
+  })
 
   return (
     <div id="zero-state">
       <h1>Welcome to Vineyard Manager</h1>
-
-      {farmData.length > 0 ? (
-        <div>
-          <h2>Puller Vine Count</h2>
-          <TableComponent data={getVineCount(farmData, 'puller', peopleData)} />
-          <h2>Roller Vine Count</h2>
-          <TableComponent data={getVineCount(farmData, 'roller', peopleData)} />
-        </div>
-      ) : null}
+      {isLoading && <div>Loading...</div>}
+      {isError && <div>Error: {error.message}</div>}
+      {data && <DataSummary data={data} />}
     </div>
   )
 }
