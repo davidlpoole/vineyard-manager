@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { getAllEmployeeVineCounts } from '../apiClient.ts'
 
 function DataSummary({ data }) {
   return data.map((employee) => (
@@ -11,8 +12,7 @@ function DataSummary({ data }) {
 export default function Dashboard() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['data'],
-    queryFn: () =>
-      fetch('http://localhost:3000/api/v1/counts').then((res) => res.json()),
+    queryFn: getAllEmployeeVineCounts,
   })
 
   return (

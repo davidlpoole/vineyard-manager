@@ -13,7 +13,7 @@ import PersonView from './components/Person'
 
 function App() {
   return (
-    <Router basename="/vineyard-manager">
+    <Router>
       <Root />
       <Outlet>
         <Switch>
